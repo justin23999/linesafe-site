@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LineSafe — Pipeline Survey &amp; Longitudinal Profile</title>
+  <meta name="description" content="LineSafe helps surveyors, draftsmen and field professionals record pipeline survey data, calculate levels, generate longitudinal profiles and create engineering deliverables.">
+  <meta name="theme-color" content="#0b2a5b">
+  <link rel="icon" type="image/png" href="assets/linesafe-icon.png">
+  <link rel="apple-touch-icon" href="assets/linesafe-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="LineSafe home">
+        <img src="assets/linesafe-icon.png" alt="" width="36" height="36">
+        <span><span class="brand-line">Line</span><span class="brand-safe">Safe</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="support.html">Support</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <img class="hero-icon" src="assets/linesafe-icon.png" alt="LineSafe app icon" width="72" height="72">
+          <h1>LineSafe</h1>
+          <p class="tagline">Pipeline Survey &amp; Longitudinal Profile</p>
+          <p class="lead">LineSafe helps surveyors, draftsmen and field professionals record pipeline survey data, calculate levels, generate longitudinal profiles and create engineering deliverables.</p>
+          <p class="lead">It is an engineering utility for field-level recording and drafting: enter your readings, check the calculated levels, shape the profile and export it to Excel, PDF or AutoCAD DXF.</p>
+          <ul class="hero-meta" aria-label="Availability">
+            <li class="chip">Android</li>
+            <li class="chip">Windows desktop</li>
+            <li class="chip">Version 1.0.0</li>
+          </ul>
+          <div class="button-row">
+            <a class="button button-primary" href="#features">View features</a>
+            <a class="button button-secondary" href="support.html">Get support</a>
+          </div>
+        </div>
+
+        <figure class="profile-figure">
+          <svg viewBox="0 0 480 290" role="img" aria-labelledby="profile-title profile-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="profile-title">Illustrative longitudinal profile</title>
+            <desc id="profile-desc">A schematic longitudinal profile showing a ground line, a pipe crown line below it, survey stations at 20 metre chainage intervals and an obstacle crossing.</desc>
+            <defs>
+              <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <line x1="0" y1="0" x2="0" y2="6" stroke="#8a94a6" stroke-width="1.5"/>
+              </pattern>
+            </defs>
+            <!-- grid -->
+            <g stroke="#e8edf4" stroke-width="1">
+              <line x1="40" y1="40" x2="440" y2="40"/>
+              <line x1="40" y1="80" x2="440" y2="80"/>
+              <line x1="40" y1="120" x2="440" y2="120"/>
+              <line x1="40" y1="160" x2="440" y2="160"/>
+              <line x1="40" y1="200" x2="440" y2="200"/>
+            </g>
+            <!-- station verticals -->
+            <g stroke="#b8c3d3" stroke-width="1" stroke-dasharray="3 4">
+              <line x1="40" y1="84" x2="40" y2="220"/>
+              <line x1="120" y1="72" x2="120" y2="220"/>
+              <line x1="200" y1="100" x2="200" y2="220"/>
+              <line x1="280" y1="88" x2="280" y2="220"/>
+              <line x1="360" y1="112" x2="360" y2="220"/>
+              <line x1="440" y1="98" x2="440" y2="220"/>
+            </g>
+            <!-- datum -->
+            <line x1="40" y1="220" x2="440" y2="220" stroke="#0b2a5b" stroke-width="1.5"/>
+            <!-- obstacle -->
+            <rect x="300" y="168" width="36" height="22" fill="url(#hatch)" stroke="#5b6678" stroke-width="1.2"/>
+            <text x="318" y="204" font-size="9" fill="#4a5668" text-anchor="middle" font-family="system-ui, sans-serif">Obstacle</text>
+            <!-- ground profile -->
+            <polyline points="40,84 120,72 200,100 280,88 360,112 440,98" fill="none" stroke="#0b8a5f" stroke-width="2.5" stroke-linejoin="round"/>
+            <!-- pipe crown profile -->
+            <polyline points="40,130 120,122 200,140 280,142 360,156 440,150" fill="none" stroke="#1f6fd1" stroke-width="2.5" stroke-linejoin="round"/>
+            <!-- station points -->
+            <g fill="#ffffff" stroke="#0b8a5f" stroke-width="2">
+              <circle cx="40" cy="84" r="3.5"/><circle cx="120" cy="72" r="3.5"/><circle cx="200" cy="100" r="3.5"/>
+              <circle cx="280" cy="88" r="3.5"/><circle cx="360" cy="112" r="3.5"/><circle cx="440" cy="98" r="3.5"/>
+            </g>
+            <g fill="#ffffff" stroke="#1f6fd1" stroke-width="2">
+              <circle cx="40" cy="130" r="3.5"/><circle cx="120" cy="122" r="3.5"/><circle cx="200" cy="140" r="3.5"/>
+              <circle cx="280" cy="142" r="3.5"/><circle cx="360" cy="156" r="3.5"/><circle cx="440" cy="150" r="3.5"/>
+            </g>
+            <!-- annotation -->
+            <g font-family="system-ui, sans-serif" font-size="9" fill="#0b2a5b">
+              <line x1="120" y1="72" x2="120" y2="30" stroke="#0b2a5b" stroke-width="1"/>
+              <text x="124" y="34">Valve</text>
+            </g>
+            <!-- chainage labels -->
+            <g font-family="ui-monospace, Consolas, monospace" font-size="9" fill="#4a5668" text-anchor="middle">
+              <text x="40" y="236">0+000</text>
+              <text x="120" y="236">0+020</text>
+              <text x="200" y="236">0+040</text>
+              <text x="280" y="236">0+060</text>
+              <text x="360" y="236">0+080</text>
+              <text x="440" y="236">0+100</text>
+            </g>
+            <!-- legend -->
+            <g font-family="system-ui, sans-serif" font-size="10" fill="#16202e">
+              <line x1="40" y1="266" x2="62" y2="266" stroke="#0b8a5f" stroke-width="2.5"/>
+              <text x="68" y="269">Ground Level</text>
+              <line x1="160" y1="266" x2="182" y2="266" stroke="#1f6fd1" stroke-width="2.5"/>
+              <text x="188" y="269">Pipe Crown</text>
+              <rect x="276" y="260" width="16" height="12" fill="url(#hatch)" stroke="#5b6678" stroke-width="1"/>
+              <text x="298" y="269">Obstacle</text>
+            </g>
+          </svg>
+          <figcaption>Schematic illustration of a longitudinal profile, not a screenshot.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Features</span>
+          <h2 id="features-title">What LineSafe 1.0 does</h2>
+          <p>LineSafe covers the path from levelling readings in the field to a finished longitudinal profile drawing. Everything listed here is included in version 1.0.0.</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="card">
+            <h3><span class="card-mark" aria-hidden="true"></span>Survey workflow</h3>
+            <ul>
+              <li>Survey data entry and editing</li>
+              <li>Chainage-based records</li>
+              <li>Known RL</li>
+              <li>BS / IS / FS readings</li>
+              <li>HI and RL calculation workflow</li>
+              <li>Ground Level</li>
+              <li>Pipe Cover</li>
+              <li>Calculated Pipe Crown</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3><span class="card-mark" aria-hidden="true"></span>Longitudinal profile</h3>
+            <ul>
+              <li>Ground profile</li>
+              <li>Pipe Crown profile</li>
+              <li>Dynamic custom profile lines</li>
+              <li>Straight profile segments</li>
+              <li>Configurable profile visibility and appearance</li>
+              <li>Profile editing</li>
+              <li>Point annotations</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3><span class="card-mark" aria-hidden="true"></span>Engineering objects</h3>
+            <ul>
+              <li>Obstacles</li>
+              <li>Pipe fittings</li>
+              <li>Existing connection</li>
+              <li>End cap</li>
+              <li>90-degree bend</li>
+              <li>Tee</li>
+              <li>Profile references</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3><span class="card-mark" aria-hidden="true"></span>Project management</h3>
+            <ul>
+              <li>Save projects</li>
+              <li>Reopen projects</li>
+              <li>Project number</li>
+              <li>Project name</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3><span class="card-mark" aria-hidden="true"></span>Import and export</h3>
+            <ul>
+              <li>Excel import</li>
+              <li>Excel export</li>
+              <li>Professional PDF longitudinal profile export</li>
+              <li>AutoCAD DXF export</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3><span class="card-mark" aria-hidden="true"></span>Platforms</h3>
+            <ul>
+              <li>Android</li>
+              <li>Windows desktop</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="workflow" aria-labelledby="workflow-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Workflow</span>
+          <h2 id="workflow-title">From survey data to engineering drawing</h2>
+          <p>One project carries your readings, the calculated levels and the profile drawing, so the deliverable always reflects the data it came from.</p>
+        </div>
+
+        <ol class="workflow">
+          <li>
+            <strong>Survey Data</strong>
+            <span>Enter chainages, Known RL and BS / IS / FS readings, or import them from Excel.</span>
+            <span class="arrow-head" aria-hidden="true"></span>
+          </li>
+          <li>
+            <strong>Calculations</strong>
+            <span>HI and RL are reduced from your readings, and Pipe Crown is calculated from Ground Level and Pipe Cover.</span>
+            <span class="arrow-head" aria-hidden="true"></span>
+          </li>
+          <li>
+            <strong>Longitudinal Profile</strong>
+            <span>Review and edit the profile, add obstacles, fittings, references and annotations.</span>
+            <span class="arrow-head" aria-hidden="true"></span>
+          </li>
+          <li>
+            <strong>Excel / PDF / DXF</strong>
+            <span>Export a workbook, a PDF profile sheet or an AutoCAD DXF drawing.</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="audience-title">
+      <div class="container split">
+        <div>
+          <span class="eyebrow">Who it is for</span>
+          <h2 id="audience-title">Built for the people who survey and draw pipelines</h2>
+          <p>LineSafe is intended for surveyors, civil draftsmen, pipeline draftsmen, site supervisors and field engineers who need a dependable way to record levels and turn them into a profile.</p>
+        </div>
+        <div>
+          <span class="eyebrow">Your data</span>
+          <h2>Projects stay on your device</h2>
+          <p>LineSafe works offline. Projects are saved locally on your device, and there is no LineSafe account to create. Files leave the app only when you choose to export them.</p>
+          <p><a href="privacy.html">Read the privacy policy</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 LineSafe. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
