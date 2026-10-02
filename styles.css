@@ -247,6 +247,12 @@ p { margin: 0 0 1em; }
   font-weight: 700;
   text-decoration: none;
   border: 2px solid var(--navy);
+  /* .button is also used on a real <button> (the disabled "Buy" control) --
+     these three reset the native button chrome/font so it renders
+     identically to the <a>-based buttons elsewhere on the site. */
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .button-primary {
@@ -466,6 +472,103 @@ p { margin: 0 0 1em; }
 }
 
 .note p:last-child { margin-bottom: 0; }
+
+/* Pricing */
+
+.pricing-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  max-width: 820px;
+}
+
+@media (min-width: 720px) {
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.price-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.price-card-featured {
+  border-color: var(--navy);
+  border-width: 2px;
+  box-shadow: 0 2px 10px rgba(11, 42, 91, 0.1);
+  position: relative;
+}
+
+.price-badge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--navy);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.price-card h3 {
+  margin-bottom: 4px;
+}
+
+.price {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0 0 16px;
+}
+
+.price-period {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.price-card ul {
+  margin: 0 0 16px;
+  padding-left: 1.2em;
+  color: var(--muted);
+  flex-grow: 1;
+}
+
+.price-card li + li {
+  margin-top: 6px;
+}
+
+.price-card li::marker {
+  color: var(--green);
+}
+
+.price-note {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.button-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.button-disabled:hover {
+  background: var(--navy);
+  color: #fff;
+}
+
+.purchase-status-note {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
 
 /* Two-column info */
 

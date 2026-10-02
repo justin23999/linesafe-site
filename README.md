@@ -6,8 +6,10 @@ The official V1 website for **LineSafe — Pipeline Survey & Longitudinal Profil
 
 This is the public website for the LineSafe app. It provides:
 
-- Product information and the V1 feature list
+- Product information and the feature list
+- A Pricing section (Demo vs. LineSafe Full, one-time US$49) with a "Buy" button that is intentionally inactive until online checkout is live
 - The Privacy Policy (to be linked from the Google Play listing)
+- The Terms and Refund Policy pages (for payment-provider domain review)
 - User support information
 - A place for the Google Play download link once the app is published
 
@@ -17,8 +19,10 @@ It is a plain static site (HTML and CSS only, no JavaScript, no build step) desi
 
 ```
 linesafe website/
-├── index.html        Home page: hero, features, workflow
-├── privacy.html      Privacy Policy
+├── index.html        Home page: hero, features, pricing, workflow
+├── privacy.html      Privacy Policy (includes payment-information section)
+├── terms.html        Terms (license, responsibility, not legal advice)
+├── refund.html       Refund Policy (30-day seller window + consumer rights)
 ├── support.html      Support page
 ├── styles.css        Shared stylesheet for all pages
 ├── README.md         This file
@@ -106,12 +110,16 @@ git push
 With the username `justin23999` and repository `linesafe-site`, the site will be at approximately:
 
 - Home: <https://justin23999.github.io/linesafe-site/>
+- Pricing: <https://justin23999.github.io/linesafe-site/#pricing>
 - Privacy Policy: <https://justin23999.github.io/linesafe-site/privacy.html>
+- Terms: <https://justin23999.github.io/linesafe-site/terms.html>
+- Refund Policy: <https://justin23999.github.io/linesafe-site/refund.html>
 - Support: <https://justin23999.github.io/linesafe-site/support.html>
 
-Use the Privacy Policy URL in the Google Play Console.
+Use the Privacy Policy URL in the Google Play Console. Use the Pricing, Terms, Refund Policy and Support URLs for payment-provider (e.g. Paddle) account/domain approval.
 
 ## Before publishing
 
 - Review `privacy.html` against the final production Android build and your Google Play Data Safety answers (see the comment at the top of that file).
 - Add the Google Play download link to `index.html` once the listing is live.
+- Once a real payment provider (e.g. Paddle) checkout is configured, update the "Buy LineSafe Full" button in `index.html` (currently an inactive placeholder pointing at an on-page "Purchasing coming soon" note) to the real checkout link, and update `privacy.html`'s payment-information section to name the provider if appropriate.
