@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout — LineSafe</title>
+  <meta name="description" content="Secure checkout for LineSafe Full, a one-time US$49 purchase. Payments are processed by Paddle.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0b2a5b">
+  <link rel="icon" type="image/png" href="assets/linesafe-icon.png">
+  <link rel="apple-touch-icon" href="assets/linesafe-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="LineSafe home">
+        <img src="assets/linesafe-icon.png" alt="" width="36" height="36">
+        <span><span class="brand-line">Line</span><span class="brand-safe">Safe</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="refund.html">Refunds</a></li>
+          <li><a href="support.html">Support</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>Checkout</h1>
+        <p>LineSafe Full — US$49, one-time purchase. No subscription.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <article class="doc">
+        <p id="checkout-status" role="status" aria-live="polite">This page completes LineSafe Full purchases. To see what's included, visit <a href="pricing.html">Pricing</a>.</p>
+
+        <div class="contact-card" id="checkout-success" role="status" hidden>
+          <p><strong>Payment successful — thank you!</strong></p>
+          <p>Your LineSafe Full license has been sent to your email. Download the <code>.linesafe-license</code> attachment, then open LineSafe and choose <strong>License → Activate License</strong>.</p>
+          <p>Keep your transaction ID for reference: <code id="checkout-transaction-id" style="word-break: break-all;"></code></p>
+          <p>If you have any questions, <a href="support.html">contact support</a>.</p>
+        </div>
+
+        <section aria-labelledby="about-title">
+          <h2 id="about-title">About this purchase</h2>
+          <ul>
+            <li>LineSafe Full is a permanent, one-time license for LineSafe 1.x. There is no subscription and no recurring charge.</li>
+            <li>Checkout is handled securely by Paddle, our payment provider and Merchant of Record. LineSafe never sees or stores your card details.</li>
+            <li>After payment, your signed license file is emailed to the address you use at checkout.</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="policies-title">
+          <h2 id="policies-title">Policies and support</h2>
+          <ul>
+            <li><a href="terms.html">Terms</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="refund.html">Refund Policy</a></li>
+            <li><a href="support.html">Support</a></li>
+          </ul>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 LineSafe. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="refund.html">Refunds</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+  <script>
+    /*
+     * LineSafe Full — Paddle Billing, LIVE (production) default payment link page.
+     *
+     * Paddle sends customers here as checkout.html?_ptxn=txn_... and Paddle.js opens
+     * that transaction automatically once initialized. This page must not open a
+     * checkout manually and must stay on the live (default) environment.
+     *
+     * Only a LIVE CLIENT-SIDE token (starts with "live_") belongs here. Client-side
+     * tokens are designed to be public. NEVER put a Paddle API key or any other
+     * server secret in this file.
+     */
+    (function () {
+      "use strict";
+
+      // SET BEFORE PUBLISHING: paste the live client-side token (starts with "live_").
+      var PADDLE_CLIENT_TOKEN = "live_b0734077580bfa370884aff9509";
+
+      var status = document.getElementById("checkout-status");
+      var successBox = document.getElementById("checkout-success");
+      var transactionIdEl = document.getElementById("checkout-transaction-id");
+      var hasTransaction = /[?&]_ptxn=txn_/.test(window.location.search);
+      // Paddle fires checkout.closed after checkout.completed when the customer
+      // dismisses its success screen; this flag keeps the success message showing.
+      var paymentCompleted = false;
+
+      if (typeof PADDLE_CLIENT_TOKEN !== "string" || PADDLE_CLIENT_TOKEN.indexOf("live_") !== 0) {
+        if (hasTransaction) {
+          status.textContent = "Checkout is not available right now. Please contact support.";
+        }
+        console.error("[LineSafe checkout] Live client-side token is not configured.");
+        return;
+      }
+
+      if (typeof Paddle === "undefined") {
+        if (hasTransaction) {
+          status.textContent = "Secure checkout could not be loaded. Please check your connection or try again later.";
+        }
+        console.error("[LineSafe checkout] Paddle.js failed to load.");
+        return;
+      }
+
+      if (hasTransaction) {
+        status.textContent = "Opening secure checkout…";
+      }
+
+      // Live is Paddle.js's default environment, so none is set here.
+      // Paddle.Initialize opens the ?_ptxn transaction automatically as an overlay.
+      Paddle.Initialize({
+        token: PADDLE_CLIENT_TOKEN,
+        checkout: {
+          settings: {
+            displayMode: "overlay"
+          }
+        },
+        eventCallback: function (event) {
+          if (event.name === "checkout.loaded") {
+            status.textContent = "Checkout open.";
+          } else if (event.name === "checkout.completed") {
+            paymentCompleted = true;
+            var transactionId = event.data && event.data.transaction_id;
+            status.textContent = "Payment successful — thank you!";
+            if (transactionIdEl) transactionIdEl.textContent = transactionId || "(not available)";
+            if (successBox) successBox.hidden = false;
+          } else if (event.name === "checkout.closed") {
+            if (paymentCompleted) {
+              if (successBox) successBox.scrollIntoView({ behavior: "smooth", block: "center" });
+            } else {
+              status.textContent = "Checkout closed — no payment was made.";
+            }
+          } else if (event.name === "checkout.error") {
+            status.textContent = "Something went wrong with checkout. Please try again or contact support.";
+            console.error("[LineSafe checkout] checkout.error", event);
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
