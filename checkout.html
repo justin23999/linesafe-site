@@ -91,11 +91,20 @@
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
   <script>
     /*
-     * LineSafe Full — Paddle Billing, LIVE (production) default payment link page.
+     * LineSafe Full — Paddle Billing, LIVE (production) checkout page.
+     * This is the site's one checkout page and handles two flows:
      *
-     * Paddle sends customers here as checkout.html?_ptxn=txn_... and Paddle.js opens
-     * that transaction automatically once initialized. This page must not open a
-     * checkout manually and must stay on the live (default) environment.
+     * 1. checkout.html?_ptxn=txn_...  (Paddle default payment link)
+     *    Paddle.js opens that transaction automatically once initialized. This
+     *    page never opens a checkout itself for this flow.
+     *
+     * 2. checkout.html?buy=1  (the public "Buy LineSafe Full" links)
+     *    After initializing, this page deliberately opens a checkout for the
+     *    LineSafe Full live price, quantity 1.
+     *
+     * If _ptxn is present it always wins and ?buy=1 is ignored, so only one
+     * checkout can open. A plain checkout.html load opens nothing.
+     * The page stays on Paddle's live (default) environment.
      *
      * Only a LIVE CLIENT-SIDE token (starts with "live_") belongs here. Client-side
      * tokens are designed to be public. NEVER put a Paddle API key or any other
@@ -104,19 +113,26 @@
     (function () {
       "use strict";
 
-      // SET BEFORE PUBLISHING: paste the live client-side token (starts with "live_").
+      // Paddle LIVE client-side token (public by design; starts with "live_").
       var PADDLE_CLIENT_TOKEN = "live_b0734077580bfa370884aff9509";
+
+      // LineSafe Full, one-time live price. Used only by the ?buy=1 flow.
+      var LINESAFE_FULL_PRICE_ID = "pri_01m4hwkknc15t5skdvcqkrkr61";
 
       var status = document.getElementById("checkout-status");
       var successBox = document.getElementById("checkout-success");
       var transactionIdEl = document.getElementById("checkout-transaction-id");
-      var hasTransaction = /[?&]_ptxn=txn_/.test(window.location.search);
+      var params = new URLSearchParams(window.location.search);
+      // Any _ptxn takes precedence: Paddle.js owns that flow.
+      var hasTransaction = params.has("_ptxn");
+      var wantsBuy = !hasTransaction && params.get("buy") === "1";
+      var checkoutRequested = hasTransaction || wantsBuy;
       // Paddle fires checkout.closed after checkout.completed when the customer
       // dismisses its success screen; this flag keeps the success message showing.
       var paymentCompleted = false;
 
       if (typeof PADDLE_CLIENT_TOKEN !== "string" || PADDLE_CLIENT_TOKEN.indexOf("live_") !== 0) {
-        if (hasTransaction) {
+        if (checkoutRequested) {
           status.textContent = "Checkout is not available right now. Please contact support.";
         }
         console.error("[LineSafe checkout] Live client-side token is not configured.");
@@ -124,19 +140,19 @@
       }
 
       if (typeof Paddle === "undefined") {
-        if (hasTransaction) {
+        if (checkoutRequested) {
           status.textContent = "Secure checkout could not be loaded. Please check your connection or try again later.";
         }
         console.error("[LineSafe checkout] Paddle.js failed to load.");
         return;
       }
 
-      if (hasTransaction) {
+      if (checkoutRequested) {
         status.textContent = "Opening secure checkout…";
       }
 
       // Live is Paddle.js's default environment, so none is set here.
-      // Paddle.Initialize opens the ?_ptxn transaction automatically as an overlay.
+      // For ?_ptxn, Paddle.Initialize opens that transaction automatically as an overlay.
       Paddle.Initialize({
         token: PADDLE_CLIENT_TOKEN,
         checkout: {
@@ -165,6 +181,18 @@
           }
         }
       });
+
+      // ?buy=1 only (never when _ptxn is present): open the LineSafe Full checkout.
+      if (wantsBuy) {
+        try {
+          Paddle.Checkout.open({
+            items: [{ priceId: LINESAFE_FULL_PRICE_ID, quantity: 1 }]
+          });
+        } catch (err) {
+          status.textContent = "Could not open checkout. Please try again later or contact support.";
+          console.error("[LineSafe checkout] Checkout.open failed", err);
+        }
+      }
     })();
   </script>
 </body>
