@@ -540,42 +540,29 @@ p { margin: 0 0 1em; }
   max-width: none;
 }
 
-/* Water: a continuous body that fills the whole channel, with three
-   repeating pattern layers flowing left to right at different speeds
-   (slow ripples, medium streaks, faster bubbles). Each layer moves by
-   exactly one pattern tile per loop (480 / 720 / 300 user units), so the
-   loop lands on an identical frame -- no jump, no visible start point.
-   The flanges and supports are drawn above, so the water passes behind
-   them. Two slower, non-linear layers (sway, shimmer) keep it alive. */
+/* Water: a calm continuous body with a very slow shimmer, and individual
+   particles (dots, bubbles, short and long streaks) flowing left to right.
+   Each particle sits at x <= -40, just left of the clipped channel, and
+   moves 1580 user units right -- past the channel's right end (1460) --
+   so both ends of its loop are out of sight and the restart is invisible.
+   Per-particle --dur, negative --delay, --o (opacity) and --wy (a slight
+   vertical drift) are set inline, so no two move in step. The flanges and
+   supports are drawn after the channel, so particles pass behind them. */
 .pl-water {
   opacity: 0.85;
+  animation: pl-water-shimmer 6.5s ease-in-out infinite alternate;
 }
 
-.pl-water-ripple,
-.pl-water-streaks,
-.pl-water-bubbles {
-  will-change: transform;
+.pl-p {
+  opacity: 0;
+  animation: pl-particle var(--dur) linear var(--delay) infinite;
 }
 
-.pl-water-ripple {
-  animation: pl-water-480 9s linear infinite;
-}
-
-.pl-water-streaks {
-  animation: pl-water-720 6s linear infinite;
-}
-
-.pl-water-bubbles {
-  animation: pl-water-300 2s linear infinite;
-}
-
-.pl-water-sway {
-  animation: pl-water-sway 5.3s ease-in-out infinite alternate;
-}
-
-.pl-water-shimmer {
-  animation: pl-water-shimmer 3.7s ease-in-out infinite alternate;
-}
+.pl-p-dot { fill: #9fe6ff; }
+.pl-p-bubble { fill: none; stroke: #e6f8ff; stroke-width: 0.8; }
+.pl-p-streak,
+.pl-p-long { fill: url(#pl-water-streak); }
+.pl-p-green { fill: url(#pl-water-streak-green); }
 
 .pl-pulse {
   transform-box: fill-box;
@@ -587,18 +574,15 @@ p { margin: 0 0 1em; }
 .pl-pulse-2 { animation-delay: 1.2s; }
 .pl-pulse-3 { animation-delay: 2.4s; }
 
-@keyframes pl-water-480 { to { transform: translateX(480px); } }
-@keyframes pl-water-720 { to { transform: translateX(720px); } }
-@keyframes pl-water-300 { to { transform: translateX(300px); } }
-
-@keyframes pl-water-sway {
-  from { transform: translateY(-0.6px); }
-  to { transform: translateY(0.6px); }
+@keyframes pl-particle {
+  0% { transform: translate(0, 0); opacity: var(--o); }
+  50% { transform: translate(790px, var(--wy)); opacity: var(--o); }
+  100% { transform: translate(1580px, 0); opacity: var(--o); }
 }
 
 @keyframes pl-water-shimmer {
-  from { opacity: 0.6; }
-  to { opacity: 1; }
+  from { opacity: 0.82; }
+  to { opacity: 0.9; }
 }
 
 @keyframes pl-pulse {
@@ -1419,7 +1403,8 @@ p { margin: 0 0 1em; }
   }
 
   .pl-pulse { opacity: 0; }
-  /* The hero water stays visible as a still, continuous body. */
+  /* Hero water: the particles wait out of sight left of the pipe, so
+     only the calm, still water body shows. */
 }
 
 @media print {
