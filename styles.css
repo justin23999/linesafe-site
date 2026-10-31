@@ -540,40 +540,41 @@ p { margin: 0 0 1em; }
   max-width: none;
 }
 
-/* Water: three dash layers at different speeds give depth, plus a soft
-   highlight that sweeps the whole length. Each dash offset animates by
-   exactly one dash period so the loop is seamless. */
-.pl-flow {
-  fill: none;
-  stroke-linecap: round;
+/* Water: a continuous body that fills the whole channel, with three
+   repeating pattern layers flowing left to right at different speeds
+   (slow ripples, medium streaks, faster bubbles). Each layer moves by
+   exactly one pattern tile per loop (480 / 720 / 300 user units), so the
+   loop lands on an identical frame -- no jump, no visible start point.
+   The flanges and supports are drawn above, so the water passes behind
+   them. Two slower, non-linear layers (sway, shimmer) keep it alive. */
+.pl-water {
+  opacity: 0.85;
 }
 
-.pl-flow-wide {
-  stroke: #3fd6a6;
-  stroke-width: 12;
-  stroke-opacity: 0.22;
-  stroke-dasharray: 180 420;
-  animation: pl-flow-600 6s linear infinite;
+.pl-water-ripple,
+.pl-water-streaks,
+.pl-water-bubbles {
+  will-change: transform;
 }
 
-.pl-flow-main {
-  stroke: var(--water);
-  stroke-width: 5;
-  stroke-opacity: 0.9;
-  stroke-dasharray: 70 230;
-  animation: pl-flow-300 2.8s linear infinite;
+.pl-water-ripple {
+  animation: pl-water-480 9s linear infinite;
 }
 
-.pl-flow-fine {
-  stroke: #d8f6ff;
-  stroke-width: 2;
-  stroke-opacity: 0.75;
-  stroke-dasharray: 24 156;
-  animation: pl-flow-180 1.9s linear infinite;
+.pl-water-streaks {
+  animation: pl-water-720 6s linear infinite;
 }
 
-.pl-glint {
-  animation: pl-glint 7s ease-in-out infinite;
+.pl-water-bubbles {
+  animation: pl-water-300 2s linear infinite;
+}
+
+.pl-water-sway {
+  animation: pl-water-sway 5.3s ease-in-out infinite alternate;
+}
+
+.pl-water-shimmer {
+  animation: pl-water-shimmer 3.7s ease-in-out infinite alternate;
 }
 
 .pl-pulse {
@@ -586,13 +587,18 @@ p { margin: 0 0 1em; }
 .pl-pulse-2 { animation-delay: 1.2s; }
 .pl-pulse-3 { animation-delay: 2.4s; }
 
-@keyframes pl-flow-600 { to { stroke-dashoffset: -600; } }
-@keyframes pl-flow-300 { to { stroke-dashoffset: -300; } }
-@keyframes pl-flow-180 { to { stroke-dashoffset: -180; } }
+@keyframes pl-water-480 { to { transform: translateX(480px); } }
+@keyframes pl-water-720 { to { transform: translateX(720px); } }
+@keyframes pl-water-300 { to { transform: translateX(300px); } }
 
-@keyframes pl-glint {
-  0% { transform: translateX(0); }
-  70%, 100% { transform: translateX(1800px); }
+@keyframes pl-water-sway {
+  from { transform: translateY(-0.6px); }
+  to { transform: translateY(0.6px); }
+}
+
+@keyframes pl-water-shimmer {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
 }
 
 @keyframes pl-pulse {
@@ -1413,6 +1419,7 @@ p { margin: 0 0 1em; }
   }
 
   .pl-pulse { opacity: 0; }
+  /* The hero water stays visible as a still, continuous body. */
 }
 
 @media print {
